@@ -36,6 +36,13 @@ class MainActivity : AppCompatActivity() {
 
         val checkedChipId = chipGroup.checkedChipId
 
+        R.id.button_guide.setOnClickListner{
+            showPopup()
+        }
+
+    }
+
+    private fun showPopup(){
 
     }
 }
