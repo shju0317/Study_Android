@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">TapeStudy</string>
+    <string-array name="tape_subject">
+        <item>노래</item>
+        <item>연주</item>
+        <item>오디오북</item>
+        <item>이야기</item>
+        <item>ASMR</item>
+        <item>더빙</item>
+        <item>엔터테인먼트</item>
+        <item>교육</item>
+        <item>기타</item>
+    </string-array>
+    <string name="tape_notice">
+        ※ 30초 이상 5분까지 녹음 가능 \n
+        ※ 음원, MR 등 직접 제작하지 않은 테이프는 삭제됨
+    </string>
 </resources>
