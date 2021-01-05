@@ -1,13 +1,14 @@
 package com.example.tapestudy
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
+
 class MainActivity : AppCompatActivity() {
 
-    // 파일명 글자 수 제한
     val TITLE_MIN_LENGTH = 5
     val TITLE_MAX_LENGTH = 20
 
@@ -29,16 +30,16 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
 
-            chipGroup.addView(chip)
+            chipGroup.addView(chip) // chipGroup에 chip 추가
+
+
+
         }
 
-        chipGroup.isSingleSelection = true
 
-        val checkedChipId = chipGroup.checkedChipId
-
-        R.id.button_guide.setOnClickListner{
-            showPopup()
-        }
+//        R.id.button_guide.setOnClickListner{
+//            showPopup()
+//        }
 
     }
 

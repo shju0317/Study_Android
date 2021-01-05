@@ -25,6 +25,7 @@
         android:src="@drawable/btn_upload_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/transparency_66"
         />
 
     <TextView
@@ -40,6 +41,8 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        app:singleSelection="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +98,16 @@
 
             app:layout_constraintEnd_toStartOf="@+id/button_upload"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/transparency_66"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="녹음"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_record" />
 
         <!-- 테이프 업로드 -->
         <ImageButton
@@ -105,20 +117,30 @@
             android:src="@drawable/btn_tape_upload"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/button_record"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/transparency_66"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="40dp"
+            android:layout_height="22dp"
+            android:text="업로드"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_upload" />
 
         <!-- 테이프 일시정지 -->
         <ImageButton
             android:id="@+id/button_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/btn_pause"
             android:background="@drawable/progress_record"
+            android:src="@drawable/btn_pause"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="invisible"
-             />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -138,7 +160,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/btn_broad_guide"
         app:layout_constraintBottom_toTopOf="@id/button_register"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/transparency_66"/>
 
     <Button
         android:id="@+id/button_register"
