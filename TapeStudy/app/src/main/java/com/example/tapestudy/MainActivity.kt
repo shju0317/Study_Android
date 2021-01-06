@@ -2,6 +2,7 @@ package com.example.tapestudy
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -43,14 +44,21 @@ class MainActivity : AppCompatActivity() {
             val chip:Chip = Chip(this) // Chip 인스턴스 생성
             chip.setText(subject) // Chip의 텍스트 지정
             chip.setTextColor(Color.WHITE)
-            chip.setChipBackgroundColor(Color.CYAN)
+            chip.chipBackgroundColor = ColorStateList.valueOf(Color.DKGRAY)
+            //chip.setChipBackgroundColor(Color.CYAN)
 
-//            chipGroup.setOnCheckedChangeListener{chip, isChecked ->
-//                chip.setBackgroundColor(Color.BLUE)
-//                if (isChecked){
-//                    chip.setBackgroundColor(Color.MAGENTA)
+            chip.isCheckable = true
+
+            // Set chip group checked change listener
+//            chipGroup.setOnCheckedChangeListener{group,checkedId:Int ->
+//                // Get the checked chip instance from chip group
+//                val chip:Chip? = findViewById(checkedId)
+//
+//                chip?.let {
+//                    chip.chipBackgroundColor = ColorStateList.valueOf(Color.RED)
 //                }
 //            }
+
             chipGroup.addView(chip) // chipGroup에 chip 추가
         }
 
@@ -69,10 +77,13 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var userinput = edit_title.text.toString()
 
+                lateinit var chkMsg:Unit
                 if(userinput.length >= TITLE_MAX_LENGTH){
-                    var chkMsg = Toast.makeText(applicationContext,"20자 이하로 입력해주세요", Toast.LENGTH_LONG)
-                    chkMsg.show()
+                    chkMsg = Toast.makeText(applicationContext,"20자 이하로 입력해주세요", Toast.LENGTH_LONG).show()
+                }else if(userinput.length < TITLE_MIN_LENGTH){
+                    chkMsg = Toast.makeText(applicationContext,"방송제목을 5자 이상 입력해주세요", Toast.LENGTH_LONG).show()
                 }
+
                 text_chkTitleLength.text = userinput.length.toString() + "/20"
             }
 
