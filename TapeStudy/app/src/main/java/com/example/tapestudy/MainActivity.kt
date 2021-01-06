@@ -1,16 +1,35 @@
 package com.example.tapestudy
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
     val TITLE_MIN_LENGTH = 5
     val TITLE_MAX_LENGTH = 20
+
+    private val OPEN_GALLERY = 1
+    private val OPEN_MUSIC = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,27 +42,109 @@ class MainActivity : AppCompatActivity() {
         for (subject in tapeSubjectArr){
             val chip:Chip = Chip(this) // Chip 인스턴스 생성
             chip.setText(subject) // Chip의 텍스트 지정
+            chip.setTextColor(Color.WHITE)
+            chip.setChipBackgroundColor(Color.CYAN)
 
-//            chipGroup.setOnCheckedChangeListener{_, isChecked ->
+//            chipGroup.setOnCheckedChangeListener{chip, isChecked ->
+//                chip.setBackgroundColor(Color.BLUE)
 //                if (isChecked){
-//                    chip.setBackgroundColor()
+//                    chip.setBackgroundColor(Color.MAGENTA)
 //                }
 //            }
-
             chipGroup.addView(chip) // chipGroup에 chip 추가
-
-
-
         }
 
+        val checkedChipId = chipGroup.checkedChipId // Will return View.NO_ID if singleSelection = false
+        val checkedChipIds = chipGroup.checkedChipIds
+            chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            // Handle child Chip checked/unchecked
+        }
 
-//        R.id.button_guide.setOnClickListner{
-//            showPopup()
-//        }
+        // 제목 글자수 세기
+        edit_title.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                text_chkTitleLength.text = "0/20"
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var userinput = edit_title.text.toString()
+
+                if(userinput.length >= TITLE_MAX_LENGTH){
+                    var chkMsg = Toast.makeText(applicationContext,"20자 이하로 입력해주세요", Toast.LENGTH_LONG)
+                    chkMsg.show()
+                }
+                text_chkTitleLength.text = userinput.length.toString() + "/20"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                var userinput = edit_title.text.toString()
+                text_chkTitleLength.text = userinput.length.toString() + "/20"
+            }
+        })
+
+        //
+        //button_record.setOnClickListener { chkVisibility() }
+        chkVisibility()
+
+        // 갤러리 열기
+        button_openImg.setOnClickListener { openGallery() }
+
+        // 음악폴더 열기
+        button_upload.setOnClickListener { openMusic() }
+
+        // 방송가이드 팝업창 띄우기
+        button_guide.setOnClickListener{ showPopup() }
+
+        // 테이프 등록
+        button_register.setOnClickListener { registerTape() }
 
     }
 
+    // 버튼 클릭에 따라 녹음화면 변환
+    private fun chkVisibility(){
+        View.OnClickListener {
+            fun onClick(view: View?){
+                when(view?.id){
+                    R.id.button_record -> { layout_imageBtn1.setVisibility(View.INVISIBLE) }
+                }
+            }
+        }
+    }
+
+    // 음악폴더 열기
+    private fun openMusic(){
+        val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.setType("audio/*")
+        startActivityForResult(intent, OPEN_MUSIC)
+    }
+
+    // 갤러리 열기
+    private fun openGallery(){
+        val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.setType("image/*")
+        startActivityForResult(intent, OPEN_GALLERY)
+    }
+
+    // 방송가이드 팝업창 띄우기
     private fun showPopup(){
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.alert_popup, null)
 
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("방송가이드")
+            .setNeutralButton("확인", null)
+            .create()
+
+        alertDialog.setView(view)
+        alertDialog.window?.setGravity(Gravity.BOTTOM)
+        alertDialog.show()
+        //alertDialog.window.setLayout(500,400)
     }
+
+    // 테이프 등록
+    private fun registerTape(){
+       var chkMsg = Toast.makeText(this, "등록되었습니다!", Toast.LENGTH_SHORT)
+        chkMsg.show()
+    }
+
 }
