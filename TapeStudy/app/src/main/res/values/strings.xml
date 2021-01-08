@@ -29,4 +29,13 @@
             <li>기타 서비스 이용약관 및 법률 위반 등</li>\n
         </ul>
     </string>
+    <string name="register_tape">
+        내가 부른 노래, 이야기 등\n
+        유익하고 재미있는 여러분의\n
+        목소리를 업로드 해주세요.
+    </string>
+    <string name="register_tape2">
+        ※ 음원, MR 등 직접 제작하지 않은\n
+        테이프는 삭제됨
+    </string>
 </resources>

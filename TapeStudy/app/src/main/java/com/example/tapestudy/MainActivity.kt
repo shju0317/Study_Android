@@ -23,7 +23,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     val TITLE_MIN_LENGTH = 5
@@ -45,19 +44,7 @@ class MainActivity : AppCompatActivity() {
             chip.setText(subject) // Chip의 텍스트 지정
             chip.setTextColor(Color.WHITE)
             chip.chipBackgroundColor = ColorStateList.valueOf(Color.DKGRAY)
-            //chip.setChipBackgroundColor(Color.CYAN)
-
             chip.isCheckable = true
-
-            // Set chip group checked change listener
-//            chipGroup.setOnCheckedChangeListener{group,checkedId:Int ->
-//                // Get the checked chip instance from chip group
-//                val chip:Chip? = findViewById(checkedId)
-//
-//                chip?.let {
-//                    chip.chipBackgroundColor = ColorStateList.valueOf(Color.RED)
-//                }
-//            }
 
             chipGroup.addView(chip) // chipGroup에 chip 추가
         }
@@ -70,32 +57,53 @@ class MainActivity : AppCompatActivity() {
 
         // 제목 글자수 세기
         edit_title.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                text_chkTitleLength.text = "0/20"
-            }
+
+            var userinput = edit_title.text.toString()
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var userinput = edit_title.text.toString()
-
                 lateinit var chkMsg:Unit
                 if(userinput.length >= TITLE_MAX_LENGTH){
                     chkMsg = Toast.makeText(applicationContext,"20자 이하로 입력해주세요", Toast.LENGTH_LONG).show()
-                }else if(userinput.length < TITLE_MIN_LENGTH){
-                    chkMsg = Toast.makeText(applicationContext,"방송제목을 5자 이상 입력해주세요", Toast.LENGTH_LONG).show()
                 }
-
-                text_chkTitleLength.text = userinput.length.toString() + "/20"
+//                else if(userinput.length < TITLE_MIN_LENGTH){
+//                    chkMsg = Toast.makeText(applicationContext,"방송제목을 5자 이상 입력해주세요", Toast.LENGTH_SHORT).show()
+//                }
             }
 
             override fun afterTextChanged(s: Editable?) {
-                var userinput = edit_title.text.toString()
+                userinput = edit_title.text.toString()
                 text_chkTitleLength.text = userinput.length.toString() + "/20"
             }
         })
 
-        //
+
+        // Set chip group checked change listener
+        chipGroup.setOnCheckedChangeListener{group, checkedId:Int ->
+            // Get the checked chip instance from chip group
+            val chip:Chip? = findViewById(checkedId)
+
+//            if(chip != null ){
+//                button_register.isEnabled = true
+//                button_register.setBackgroundColor(Color.MAGENTA)
+//            }
+
+            chip?.let {
+                //chip.chipBackgroundColor = ColorStateList.valueOf(Color.RED)
+
+                var userinput = edit_title.text.toString()
+
+                    //button_register.isEnabled = true
+                    //button_register.setBackgroundColor(Color.MAGENTA)
+
+            }
+        }
+
+
+        // 버튼 클릭에 따라 녹음화면 변환
         //button_record.setOnClickListener { chkVisibility() }
-        chkVisibility()
+        changeLayoutVisibility()
 
         // 갤러리 열기
         button_openImg.setOnClickListener { openGallery() }
@@ -108,11 +116,10 @@ class MainActivity : AppCompatActivity() {
 
         // 테이프 등록
         button_register.setOnClickListener { registerTape() }
-
     }
 
     // 버튼 클릭에 따라 녹음화면 변환
-    private fun chkVisibility(){
+    private fun changeLayoutVisibility(){
         View.OnClickListener {
             fun onClick(view: View?){
                 when(view?.id){
@@ -136,10 +143,11 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, OPEN_GALLERY)
     }
 
+
     // 방송가이드 팝업창 띄우기
     private fun showPopup(){
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.alert_popup, null)
+        val view = inflater.inflate(R.layout.popup_broadcast_guide, null)
 
         val alertDialog = AlertDialog.Builder(this)
             .setTitle("방송가이드")
@@ -154,8 +162,29 @@ class MainActivity : AppCompatActivity() {
 
     // 테이프 등록
     private fun registerTape(){
-       var chkMsg = Toast.makeText(this, "등록되었습니다!", Toast.LENGTH_SHORT)
-        chkMsg.show()
+//       var chkMsg = Toast.makeText(this, "등록되었습니다!", Toast.LENGTH_SHORT)
+//        chkMsg.show()
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.popup_register_tape, null)
+
+        val alertDialog = AlertDialog.Builder(this)
+                .setNeutralButton("확인", null)
+                .create()
+
+        alertDialog.setView(view)
+        alertDialog.show()
+    }
+
+    private fun chkRegisterBtn(){
+//        // Set chip group checked change listener
+//            chipGroup.setOnCheckedChangeListener{group, checkedId:Int ->
+//                // Get the checked chip instance from chip group
+//                val chip:Chip? = findViewById(checkedId)
+//
+//                chip?.let {
+//                    chip.chipBackgroundColor = ColorStateList.valueOf(Color.RED)
+//                }
+//            }
     }
 
 }

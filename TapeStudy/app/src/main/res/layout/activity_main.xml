@@ -102,13 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_tape_record"
-
             app:layout_constraintEnd_toStartOf="@+id/button_upload"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/transparency_66"/>
-
-
 
         <!-- 테이프 업로드 -->
         <ImageButton
@@ -156,7 +153,6 @@
             android:id="@+id/button_re"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/progress_record"
             android:src="@drawable/btn_tape_re"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -175,17 +171,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/transparency_66"/>
 
-        <!-- 테이프 녹음 -->
+        <!-- 테이프 시작 -->
         <ImageButton
             android:id="@+id/button_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_tape_play"
+            android:background="@drawable/progress_record"
             app:layout_constraintStart_toEndOf="@id/button_record2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@color/transparency_66"/>
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -220,6 +217,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="등록하기"
         android:textColor="@color/color_white"
-        android:background="@drawable/selector_button"/>
+        android:enabled="false"
+        android:background="@drawable/selector_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
